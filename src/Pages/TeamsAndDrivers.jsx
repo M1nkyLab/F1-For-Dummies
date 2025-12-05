@@ -9,7 +9,6 @@ const teamsData = [
     name: "Scuderia Ferrari",
     color: "bg-red-600",
     textColor: "text-red-600",
-    logo: "/logos/ferrari.png", // You'll need to add these logos
     principal: "Fred Vasseur",
     base: "Maranello, Italy",
     drivers: [
@@ -38,7 +37,6 @@ const teamsData = [
     name: "Red Bull Racing",
     color: "bg-blue-900",
     textColor: "text-blue-900",
-    logo: "/logos/redbull.png",
     principal: "Christian Horner",
     base: "Milton Keynes, UK",
     drivers: [
@@ -67,7 +65,6 @@ const teamsData = [
     name: "McLaren",
     color: "bg-orange-500",
     textColor: "text-orange-500",
-    logo: "/logos/mclaren.png",
     principal: "Andrea Stella",
     base: "Woking, UK",
     drivers: [
@@ -96,7 +93,6 @@ const teamsData = [
     name: "Mercedes-AMG",
     color: "bg-teal-500",
     textColor: "text-teal-500",
-    logo: "/logos/mercedes.png",
     principal: "Toto Wolff",
     base: "Brackley, UK",
     drivers: [
@@ -127,26 +123,26 @@ export default function TeamsAndDrivers() {
   const [selectedDriver, setSelectedDriver] = useState(null);
 
   return (
-    <section id="teams" className="w-full bg-zinc-950 text-white py-20 px-4">
+    <section id="teams" className="w-full bg-zinc-950 text-white py-12 md:py-20 px-4">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
             The <span className="text-red-600">Grid</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
             Ten teams, twenty drivers. The best in the world fighting for tenths of a second.
           </p>
         </div>
 
-        {/* TEAM SELECTOR (Tab Navigation) */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* TEAM SELECTOR - Responsive buttons */}
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10">
           {teamsData.map((team) => (
             <button
               key={team.id}
               onClick={() => setActiveTeam(team)}
-              className={`px-6 py-3 rounded-full text-sm md:text-lg font-bold transition-all duration-300 border-2 ${
+              className={`px-4 py-2 md:px-6 md:py-3 rounded-full text-xs md:text-lg font-bold transition-all duration-300 border-2 ${
                 activeTeam.id === team.id
                   ? `${team.color} border-transparent text-white shadow-lg scale-105`
                   : "bg-transparent border-zinc-700 text-gray-400 hover:border-white hover:text-white"
@@ -168,19 +164,15 @@ export default function TeamsAndDrivers() {
             className="bg-zinc-900 rounded-3xl p-6 md:p-12 border border-zinc-800 shadow-2xl"
           >
             {/* Team Header Info */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-zinc-800 pb-6">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-zinc-800 pb-6">
                 <div>
-                    <h3 className={`text-4xl md:text-5xl font-bold uppercase mb-2 ${activeTeam.textColor}`}>
+                    <h3 className={`text-3xl md:text-5xl font-bold uppercase mb-2 ${activeTeam.textColor}`}>
                         {activeTeam.name}
                     </h3>
-                    <div className="flex gap-6 text-sm text-gray-400">
+                    <div className="flex flex-col md:flex-row gap-2 md:gap-6 text-sm text-gray-400">
                         <span>📍 {activeTeam.base}</span>
                         <span>👔 Boss: <span className="text-white">{activeTeam.principal}</span></span>
                     </div>
-                </div>
-                {/* Placeholder for Logo */}
-                <div className="mt-4 md:mt-0 px-4 py-2 bg-white/5 rounded-lg border border-white/10 text-xs text-gray-500 uppercase tracking-widest">
-                    Team Logo
                 </div>
             </div>
 
@@ -189,35 +181,31 @@ export default function TeamsAndDrivers() {
                 {activeTeam.drivers.map((driver) => (
                     <div 
                         key={driver.id} 
-                        className="group relative bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all cursor-pointer"
+                        className="group relative bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all cursor-pointer flex flex-col md:flex-row"
                         onClick={() => setSelectedDriver(driver)}
                     >
-                        {/* Background Gradient */}
                         <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 ${activeTeam.color}`}></div>
 
-                        <div className="flex flex-col md:flex-row items-center">
-                            {/* Image Container */}
-                            <div className="w-full md:w-1/2 h-64 relative bg-gradient-to-b from-zinc-800 to-zinc-950">
-                                {/* ⚠️ REPLACE with real image paths in /public/drivers/ */}
-                                <img 
-                                    src={driver.image} 
-                                    alt={driver.name}
-                                    className="w-full h-full object-cover object-top mix-blend-overlay opacity-50 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500"
-                                />
-                                <div className="absolute top-4 left-4 text-6xl font-black text-white/10 group-hover:text-white/30 transition-colors">
-                                    {driver.number}
-                                </div>
+                        {/* Image Container */}
+                        <div className="w-full md:w-1/2 h-56 md:h-64 relative bg-gradient-to-b from-zinc-800 to-zinc-950">
+                            <img 
+                                src={driver.image} 
+                                alt={driver.name}
+                                className="w-full h-full object-cover object-top mix-blend-overlay opacity-50 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500"
+                            />
+                            <div className="absolute top-4 left-4 text-5xl md:text-6xl font-black text-white/10 group-hover:text-white/30 transition-colors">
+                                {driver.number}
                             </div>
-                            
-                            {/* Info */}
-                            <div className="p-6 w-full md:w-1/2">
-                                <span className="text-xs font-mono text-gray-500 mb-2 block">{driver.country}</span>
-                                <h4 className="text-2xl font-bold text-white mb-2">{driver.name}</h4>
-                                <p className="text-sm text-gray-400 line-clamp-3 mb-4">{driver.bio}</p>
-                                <button className="text-sm font-bold text-white flex items-center gap-1 group-hover:gap-2 transition-all">
-                                    View Stats <ChevronRight size={16} className={`group-hover:${activeTeam.textColor}`} />
-                                </button>
-                            </div>
+                        </div>
+                        
+                        {/* Info */}
+                        <div className="p-6 w-full md:w-1/2 flex flex-col justify-center">
+                            <span className="text-xs font-mono text-gray-500 mb-1 block">{driver.country}</span>
+                            <h4 className="text-xl md:text-2xl font-bold text-white mb-2">{driver.name}</h4>
+                            <p className="text-xs md:text-sm text-gray-400 line-clamp-3 mb-4">{driver.bio}</p>
+                            <button className="text-sm font-bold text-white flex items-center gap-1 group-hover:gap-2 transition-all">
+                                View Stats <ChevronRight size={16} className={`group-hover:${activeTeam.textColor}`} />
+                            </button>
                         </div>
                     </div>
                 ))}
@@ -243,10 +231,10 @@ export default function TeamsAndDrivers() {
                         className="bg-zinc-900 w-full max-w-lg rounded-2xl border border-zinc-700 shadow-2xl overflow-hidden"
                     >
                         {/* Modal Header */}
-                        <div className="relative h-32 bg-zinc-800 overflow-hidden">
+                        <div className="relative h-24 md:h-32 bg-zinc-800 overflow-hidden">
                              <div className={`absolute inset-0 opacity-20 ${activeTeam.color}`}></div>
-                             <h3 className="absolute bottom-4 left-6 text-3xl font-bold text-white z-10">{selectedDriver.name}</h3>
-                             <span className="absolute -top-6 -right-6 text-[150px] font-black text-white/5 select-none">
+                             <h3 className="absolute bottom-4 left-6 text-2xl md:text-3xl font-bold text-white z-10">{selectedDriver.name}</h3>
+                             <span className="absolute -top-4 -right-4 text-[100px] md:text-[150px] font-black text-white/5 select-none">
                                 {selectedDriver.number}
                              </span>
                              <button 
@@ -258,36 +246,29 @@ export default function TeamsAndDrivers() {
                         </div>
 
                         {/* Stats Grid */}
-                        <div className="p-8">
-                            <div className="grid grid-cols-3 gap-4 text-center">
-                                <div className="p-4 bg-zinc-950 rounded-xl border border-zinc-800">
-                                    <Trophy className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-                                    <div className="text-2xl font-bold text-white">{selectedDriver.stats.wins}</div>
-                                    <div className="text-xs text-gray-500 uppercase tracking-wider">Wins</div>
+                        <div className="p-6 md:p-8">
+                            <div className="grid grid-cols-3 gap-2 md:gap-4 text-center">
+                                <div className="p-2 md:p-4 bg-zinc-950 rounded-xl border border-zinc-800">
+                                    <Trophy className="w-6 h-6 md:w-8 md:h-8 text-yellow-500 mx-auto mb-2" />
+                                    <div className="text-lg md:text-2xl font-bold text-white">{selectedDriver.stats.wins}</div>
+                                    <div className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wider">Wins</div>
                                 </div>
-                                <div className="p-4 bg-zinc-950 rounded-xl border border-zinc-800">
-                                    <Award className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                                    <div className="text-2xl font-bold text-white">{selectedDriver.stats.podiums}</div>
-                                    <div className="text-xs text-gray-500 uppercase tracking-wider">Podiums</div>
+                                <div className="p-2 md:p-4 bg-zinc-950 rounded-xl border border-zinc-800">
+                                    <Award className="w-6 h-6 md:w-8 md:h-8 text-blue-400 mx-auto mb-2" />
+                                    <div className="text-lg md:text-2xl font-bold text-white">{selectedDriver.stats.podiums}</div>
+                                    <div className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wider">Podiums</div>
                                 </div>
-                                <div className="p-4 bg-zinc-950 rounded-xl border border-zinc-800">
-                                    <Timer className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                                    <div className="text-2xl font-bold text-white">{selectedDriver.stats.championships}</div>
-                                    <div className="text-xs text-gray-500 uppercase tracking-wider">Titles</div>
+                                <div className="p-2 md:p-4 bg-zinc-950 rounded-xl border border-zinc-800">
+                                    <Timer className="w-6 h-6 md:w-8 md:h-8 text-red-500 mx-auto mb-2" />
+                                    <div className="text-lg md:text-2xl font-bold text-white">{selectedDriver.stats.championships}</div>
+                                    <div className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wider">Titles</div>
                                 </div>
-                            </div>
-                            
-                            <div className="mt-8 text-center">
-                                <p className="text-gray-400 text-sm">
-                                    Stats correct as of Start of 2025 Season.
-                                </p>
                             </div>
                         </div>
                     </motion.div>
                 </motion.div>
             )}
         </AnimatePresence>
-
       </div>
     </section>
   );
